@@ -5,7 +5,6 @@ import 'package:path_provider/path_provider.dart';
 class ExternalDir {
   String? tempFp;
   List<FileSystemEntity> _folders = [];
-
   fileRead() async {
     String path;
     Directory? extDir = await getExternalStorageDirectory();

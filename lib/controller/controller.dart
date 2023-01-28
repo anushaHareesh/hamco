@@ -33,6 +33,8 @@ class Controller extends ChangeNotifier {
   bool isVisible = false;
   bool isProdLoading = false;
   bool isSearch = false;
+  bool isStatusLoad = false;
+
   String? dropdwnVal;
   String? dropdwnString;
 
@@ -50,6 +52,7 @@ class Controller extends ChangeNotifier {
   String? user_id;
 
   String? menu_index;
+  List<Map<String, dynamic>> statusList = [];
   List<Map<String, dynamic>> menuList = [];
   List<Map<String, dynamic>> searchList = [];
   List<Map<String, dynamic>> transaction_item_info = [];
@@ -1605,5 +1608,52 @@ class Controller extends ChangeNotifier {
 
     print("copystockItemSelection aftr edit----$copystockItemSelection");
     notifyListeners();
+  }
+
+  /////////////////////////////////////////////////////////////
+  getStatus(String reqId, BuildContext context) {
+    // statusList = [
+    //   {"isAct": "1", "title": "Levele1", "content": "Hai from l1"},
+    //   {"isAct": "1", "title": "Levele2", "content": "Hai from l2"},
+    //   {"isAct": "1", "title": "Levele3", "content": "Hai from l3"},
+    //   {"isAct": "0", "title": "Levele4", "content": "Hai from l4"},
+    // ];
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          print("value-----$reqId");
+
+          Uri url = Uri.parse("$urlgolabl/time_line.php");
+          Map body = {
+            'req_id': reqId,
+          };
+          print("body-----$body");
+          // isDownloaded = true;
+          isStatusLoad = true;
+          notifyListeners();
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+          var map = jsonDecode(response.body);
+          print("statusList------$map");
+          statusList.clear();
+          for (var item in map) {
+            statusList.add(item);
+          }
+
+          isStatusLoad = false;
+          notifyListeners();
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print(e);
+          // return null;
+          return [];
+        }
+      }
+    });
+    // notifyListeners();
   }
 }

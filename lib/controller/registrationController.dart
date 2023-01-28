@@ -19,6 +19,7 @@ import '../model/loginModel.dart';
 
 class RegistrationController extends ChangeNotifier {
   bool isLoading = false;
+  bool isLoginLoading = false;
   StaffDetails staffModel = StaffDetails();
   String urlgolabl = Globaldata.apiglobal;
   ExternalDir externalDir = ExternalDir();
@@ -145,7 +146,7 @@ class RegistrationController extends ChangeNotifier {
       Uri url = Uri.parse("$urlgolabl/login.php");
       Map body = {'user': userName, 'pass': password};
 
-      isLoading = true;
+      isLoginLoading = true;
       notifyListeners();
       http.Response response = await http.post(
         url,
@@ -156,9 +157,11 @@ class RegistrationController extends ChangeNotifier {
       LoginModel loginModel;
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      if (map == null || map.length == 0 ) {
+      if (map == null || map.length == 0) {
         CustomSnackbar snackbar = CustomSnackbar();
         snackbar.showSnackbar(context, "Incorrect Username or Password", "");
+        isLoginLoading = false;
+        notifyListeners();
       } else {
         prefs.setString("st_uname", userName);
         prefs.setString("st_pwd", password);
@@ -172,7 +175,7 @@ class RegistrationController extends ChangeNotifier {
           prefs.setString("branch_prefix", loginModel.branchPrefix!);
         }
 
-        isLoading = false;
+        isLoginLoading = false;
         notifyListeners();
 
         Navigator.push(

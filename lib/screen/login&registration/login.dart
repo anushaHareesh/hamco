@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
           body: SafeArea(
             child: SingleChildScrollView(
               // reverse: true,
-              child: Consumer<Controller>(
+              child: Consumer<RegistrationController>(
                 builder: (context, value, child) {
                   return Form(
                     key: _formKey,
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                               // height: size.height*0.3,
                               // width: size.height*0.3,
                             ),
-    
+
                             // Image.asset(
                             //   'asset/login.png',
                             //   // height: size.height*0.3,
@@ -105,14 +105,15 @@ class _LoginPageState extends State<LoginPage> {
                                 onPressed: () async {
                                   var result;
                                   // List<Map<String, dynamic>> list =
-                                      // await Provider.of<Controller>(context,
-                                      //         listen: false)
-                                      //     .getProductDetails("","");
+                                  // await Provider.of<Controller>(context,
+                                  //         listen: false)
+                                  //     .getProductDetails("","");
                                   // print("fkjdfjdjfnzskfn;lg------${list}");
-    
-                                  Provider.of<Controller>(context, listen: false)
+
+                                  Provider.of<Controller>(context,
+                                          listen: false)
                                       .setfilter(false);
-    
+
                                   // Navigator.push(
                                   //   context,
                                   //   MaterialPageRoute(
@@ -120,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                                   //             list: value.productList,
                                   //           )),
                                   // );
-    
+
                                   if (_formKey.currentState!.validate()) {
                                     Provider.of<RegistrationController>(context,
                                             listen: false)
@@ -128,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                             controller2.text, context);
                                     // result = await MystockDB.instance.selectStaff(
                                     //     controller1.text, controller2.text);
-    
+
                                     // if (result.length == 0) {
                                     //   visible.value = true;
                                     //   print("visible===${visible.value}");
@@ -142,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                                     //       'st_username', controller1.text);
                                     //   await prefs.setString(
                                     //       'st_pwd', controller2.text);
-    
+
                                     // Navigator.push(
                                     //   context,
                                     //   MaterialPageRoute(
@@ -161,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                                     color: P_Settings.loginPagetheme,
                                   ),
                                 ),
-                                icon: value.isLoading
+                                icon: value.isLoginLoading
                                     ? Container(
                                         width: 24,
                                         height: 24,
@@ -356,7 +357,6 @@ class _LoginPageState extends State<LoginPage> {
   //   );
   // }
 }
-
 
 Future<bool> _onBackPressed(BuildContext context) async {
   return await showDialog(

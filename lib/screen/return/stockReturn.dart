@@ -109,7 +109,6 @@ class _StockReturnState extends State<StockReturn> {
                                                 "",
                                                 value.selected!);
                                         // Navigator.pop(ctx);
-
                                       }
                                     },
 
@@ -373,9 +372,10 @@ class _StockReturnState extends State<StockReturn> {
                                           // height: size.height*0.2,
                                           // width: size.width*0.2,
                                           child: CircleAvatar(
-                                             radius: 25,
-                                            backgroundImage:AssetImage('asset/noImg.png',),
-                                            
+                                            radius: 25,
+                                            backgroundImage: AssetImage(
+                                              'asset/noImg.png',
+                                            ),
                                           ),
                                         ),
                                         title: Text(

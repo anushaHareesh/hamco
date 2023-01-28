@@ -67,6 +67,7 @@ dependencies:
   photo_view: ^0.14.0
   pinch_zoom_release_unzoom: ^0.0.10
   cached_network_image: ^3.2.1
+  flutter_timeline: ^0.3.0
 
 dev_dependencies:
   flutter_test:

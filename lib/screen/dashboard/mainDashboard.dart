@@ -10,6 +10,8 @@ import 'package:hamco/screen/login&registration/login.dart';
 import 'package:hamco/screen/received/receivedList.dart';
 import 'package:hamco/screen/return/stockReturn.dart';
 import 'package:hamco/screen/search/searchScreen.dart';
+import 'package:hamco/screen/status%20monitoring/status_mon.dart';
+
 import 'package:hamco/screen/stock%20Request/stockFrstPage.dart';
 import 'package:hamco/screen/stock%20Request/stockRequest.dart';
 import 'package:hamco/screen/stock%20report/stockReport.dart';
@@ -20,6 +22,8 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../status monitoring/custom_stepper.dart';
 
 class MainDashboard extends StatefulWidget {
   @override
@@ -192,6 +196,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                     // mainAxisAlignment: ,
                                     children: [
                                       CircleAvatar(
+                                          backgroundColor: Colors.transparent,
                                           radius: 18,
                                           child:
                                               Image.asset("asset/search.png")),
@@ -229,14 +234,14 @@ class _MainDashboardState extends State<MainDashboard> {
                     //       title: Text("sjdkfhjh"),
                     //     )),
                     Positioned(
-                      top: 185,
+                      top: 190,
                       right: 10,
                       left: 10,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
-                            width: size.width * 0.43,
+                            width: size.width * 0.44,
                             height: size.height * 0.2,
                             child: Card(
                               shape: RoundedRectangleBorder(
@@ -275,6 +280,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                         padding: const EdgeInsets.all(8),
                                         child: CircleAvatar(
                                             radius: 30,
+                                            backgroundColor: Colors.transparent,
                                             child: Image.asset(
                                                 "asset/report.png")),
                                       ),
@@ -299,7 +305,7 @@ class _MainDashboardState extends State<MainDashboard> {
                             ),
                           ),
                           Container(
-                            width: size.width * 0.43,
+                            width: size.width * 0.44,
                             height: size.height * 0.2,
                             child: Card(
                               shape: RoundedRectangleBorder(
@@ -322,19 +328,6 @@ class _MainDashboardState extends State<MainDashboard> {
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .getSiteList(context, "0");
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .getProductDetails("0", "");
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .getbagData1(context, "main", "", "0");
-                                  //     Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) => RequestFirstPage(
-
-                                  //           )),
-                                  // );
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -344,10 +337,6 @@ class _MainDashboardState extends State<MainDashboard> {
                                             )),
                                   );
                                 },
-                                // leading: CircleAvatar(
-                                //     radius: 20,
-                                //     child: Image.asset("asset/stock.png")),
-                                // trailing: Icon(Icons.arrow_forward),
                                 title: Padding(
                                   padding: const EdgeInsets.only(top: 8.0),
                                   child: Column(
@@ -356,6 +345,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: CircleAvatar(
                                             radius: 30,
+                                            backgroundColor: Colors.transparent,
                                             child:
                                                 Image.asset("asset/stock.png")),
                                       ),
@@ -373,26 +363,24 @@ class _MainDashboardState extends State<MainDashboard> {
                                           ),
                                         ),
                                       ),
-
-                                      // Icon(Icons.arrow_forward),
                                     ],
                                   ),
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
                     Positioned(
-                      top: 365,
+                      top: 360,
                       right: 10,
                       left: 10,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
-                            width: size.width * 0.43,
+                            width: size.width * 0.44,
                             height: size.height * 0.2,
                             child: Card(
                               shape: RoundedRectangleBorder(
@@ -442,6 +430,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: CircleAvatar(
+                                            backgroundColor: Colors.transparent,
                                             radius: 30,
                                             child: Image.asset(
                                                 "asset/stockReturn.png")),
@@ -467,7 +456,7 @@ class _MainDashboardState extends State<MainDashboard> {
                             ),
                           ),
                           Container(
-                            width: size.width * 0.43,
+                            width: size.width * 0.44,
                             height: size.height * 0.2,
                             child: Card(
                               shape: RoundedRectangleBorder(
@@ -527,6 +516,8 @@ class _MainDashboardState extends State<MainDashboard> {
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: CircleAvatar(
+                                                backgroundColor:
+                                                    Colors.transparent,
                                                 radius: 30,
                                                 child: Image.asset(
                                                     "asset/received.png")),
@@ -553,88 +544,6 @@ class _MainDashboardState extends State<MainDashboard> {
                               ),
                             ),
                           ),
-                          // Badge(
-                          //   position:
-                          //       BadgePosition.topStart(top: 15, start: 100),
-                          //   animationType: BadgeAnimationType.scale,
-                          //   toAnimate: true,
-                          //   badgeColor: Colors.red,
-                          //   badgeContent: Consumer<Controller>(
-                          //     builder: (context, value, child) {
-                          //       // position: const BadgePosition(start: 0, top: 100);
-                          //       return Container(
-                          //         height: size.height * 0.02,
-                          //         child: Center(
-                          //           child: Text(
-                          //             value.deliveryListCount != null
-                          //                 ? value.deliveryListCount!
-                          //                 : "..",
-                          //             style: TextStyle(
-                          //                 fontSize: 12,
-                          //                 fontWeight: FontWeight.bold,
-                          //                 color: Colors.white),
-                          //           ),
-                          //         ),
-                          //       );
-                          //       // }
-                          //     },
-                          //   ),
-                          //   child: Container(
-                          //     width: size.width * 0.43,
-                          //     height: size.height * 0.2,
-                          //     child: Card(
-                          //       shape: RoundedRectangleBorder(
-                          //         borderRadius: BorderRadius.circular(15.0),
-                          //       ),
-                          //       color: Colors.white,
-                          //       child: ListTile(
-                          //         onTap: () {
-                          //           Provider.of<Controller>(context,
-                          //                   listen: false)
-                          //               .getDeliveryList(context);
-                          //           if (int.parse(value.deliveryListCount!) >
-                          //               0) {
-                          //             Navigator.push(
-                          //               context,
-                          //               MaterialPageRoute(
-                          //                   builder: (context) => ReceivedList(
-                          //                         title: "Delivery List",
-                          //                       )),
-                          //             );
-                          //           }
-                          //         },
-                          //         title: Padding(
-                          //           padding: const EdgeInsets.only(top: 8.0),
-                          //           child: Column(
-                          //             children: [
-                          //               Padding(
-                          //                 padding: const EdgeInsets.all(8.0),
-                          //                 child: CircleAvatar(
-                          //                     radius: 30,
-                          //                     child: Image.asset(
-                          //                         "asset/received.png")),
-                          //               ),
-                          //               Padding(
-                          //                 padding: const EdgeInsets.all(8.0),
-                          //                 child: Text(
-                          //                   "Delivery List",
-                          //                   style: GoogleFonts.aBeeZee(
-                          //                     textStyle: Theme.of(context)
-                          //                         .textTheme
-                          //                         .bodyText2,
-                          //                     fontSize: 15,
-                          //                     fontWeight: FontWeight.bold,
-                          //                     color: P_Settings.loginPagetheme,
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),

@@ -78,7 +78,7 @@ class SearchBottomSheet {
                                       Provider.of<Controller>(context,
                                               listen: false)
                                           .searchStockReturnItem(
-                                              context, values,to_branch_id);
+                                              context, values, to_branch_id);
                                     }
                                   } else {
                                     Provider.of<Controller>(context,
@@ -159,30 +159,33 @@ class SearchBottomSheet {
                                                 //         "save");
                                               },
                                               title: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Flexible(
                                                     child: Text(
                                                       value.searchList[index]
                                                           ["item_name"],
-                                                      style: GoogleFonts.aBeeZee(
-                                                          textStyle:
-                                                              Theme.of(context)
+                                                      style:
+                                                          GoogleFonts.aBeeZee(
+                                                              textStyle: Theme.of(
+                                                                      context)
                                                                   .textTheme
                                                                   .bodyText2,
-                                                          fontSize: 16,
-                                                          // fontWeight: FontWeight.bold,
-                                                          color: P_Settings
-                                                              .loginPagetheme),
+                                                              fontSize: 16,
+                                                              // fontWeight: FontWeight.bold,
+                                                              color: P_Settings
+                                                                  .loginPagetheme),
                                                     ),
                                                   ),
-                                                  Wrap(
-                                                    children: [
-                                                     Container(
+                                                  Wrap(children: [
+                                                    Container(
                                                       width: size.width * 0.12,
                                                       child: TextField(
-                                                        controller: value
-                                                            .qtycontroller[index],
+                                                        controller:
+                                                            value.qtycontroller[
+                                                                index],
                                                         style:
                                                             GoogleFonts.aBeeZee(
                                                           textStyle:
@@ -201,7 +204,8 @@ class SearchBottomSheet {
                                                           //border: InputBorder.none
                                                         ),
                                                         keyboardType:
-                                                            TextInputType.number,
+                                                            TextInputType
+                                                                .number,
                                                         onTap: () {
                                                           value
                                                                   .qtycontroller[
@@ -222,7 +226,7 @@ class SearchBottomSheet {
                                                           // Provider.of<Controller>(
                                                           //       context,
                                                           //       listen: false).justFun(values){
-                                                  
+
                                                           //       }
                                                           // values = value
                                                           //     .qtycontroller[index]
@@ -231,7 +235,8 @@ class SearchBottomSheet {
                                                               "hjdhszjk---$values");
                                                           if (oldText != null) {
                                                             if (values.length !=
-                                                                oldText!.length) {
+                                                                oldText!
+                                                                    .length) {
                                                               Provider.of<Controller>(
                                                                       context,
                                                                       listen:
@@ -287,7 +292,7 @@ class SearchBottomSheet {
                                                           //                   index,
                                                           //                   false,
                                                           //                   "");
-                                                  
+
                                                           //           Provider.of<Controller>(
                                                           //                   context,
                                                           //                   listen:
@@ -341,60 +346,84 @@ class SearchBottomSheet {
                                                             TextAlign.right,
                                                       ),
                                                     ),
-                                                  
 
-                                                  // SizedBox(
-                                                  //   width: size.width * 0.04,
-                                                  // ),
-                                                  value.addtoCart[index] == true
-                                                      ? Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 28.0),
-                                                          child: Icon(
-                                                            Icons.done,
-                                                            color: Colors.green,
-                                                          ),
-                                                        )
-                                                      : Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 28.0),
-                                                          child: GestureDetector(
-                                                              onTap: () async {
-                                                                oldText = value
-                                                                    .qtycontroller[
-                                                                        index]
-                                                                    .text;
-                                                                if (form_type ==
-                                                                    "1") {
-                                                                  if (value.qtycontroller[index].text !=
-                                                                          null &&
-                                                                      value
-                                                                          .qtycontroller[
-                                                                              index]
-                                                                          .text
-                                                                          .isNotEmpty) {
-                                                                    if (double.parse(value
+                                                    // SizedBox(
+                                                    //   width: size.width * 0.04,
+                                                    // ),
+                                                    value.addtoCart[index] ==
+                                                            true
+                                                        ? Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 28.0),
+                                                            child: Icon(
+                                                              Icons.done,
+                                                              color:
+                                                                  Colors.green,
+                                                            ),
+                                                          )
+                                                        : Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 28.0),
+                                                            child: GestureDetector(
+                                                                onTap: () async {
+                                                                  oldText = value
+                                                                      .qtycontroller[
+                                                                          index]
+                                                                      .text;
+                                                                  if (form_type ==
+                                                                      "1") {
+                                                                    if (value.qtycontroller[index].text !=
+                                                                            null &&
+                                                                        value
+                                                                            .qtycontroller[index]
+                                                                            .text
+                                                                            .isNotEmpty) {
+                                                                      if (double.parse(value
+                                                                              .qtycontroller[
+                                                                                  index]
+                                                                              .text) >
+                                                                          double.parse(value.searchList[index]
+                                                                              [
+                                                                              "stock"])) {
+                                                                        value.errorClicked[index] =
+                                                                            true;
+                                                                        value
                                                                             .qtycontroller[
                                                                                 index]
-                                                                            .text) >
-                                                                        double.parse(value.searchList[index]
+                                                                            .text = value
+                                                                                .searchList[index]
                                                                             [
-                                                                            "stock"])) {
-                                                                      value.errorClicked[
-                                                                              index] =
-                                                                          true;
-                                                                      value
-                                                                          .qtycontroller[
-                                                                              index]
-                                                                          .text = value
-                                                                              .searchList[index]
-                                                                          [
-                                                                          "stock"];
-                                                                    } else {
+                                                                            "stock"];
+                                                                      } else {
+                                                                        Provider.of<Controller>(context, listen: false).addToCartClicked(
+                                                                            true,
+                                                                            index);
+
+                                                                        Provider.of<Controller>(context, listen: false).addDeletebagItem(
+                                                                            value.searchList[index]["item_id"],
+                                                                            value.searchList[index]["s_rate_1"],
+                                                                            value.searchList[index]["s_rate_2"],
+                                                                            value.qtycontroller[index].text,
+                                                                            "0",
+                                                                            "0",
+                                                                            context,
+                                                                            "save",
+                                                                            "",
+                                                                            form_type,
+                                                                            to_branch_id);
+                                                                      }
+                                                                    }
+                                                                  } else {
+                                                                    if (value.qtycontroller[index].text !=
+                                                                            null &&
+                                                                        value
+                                                                            .qtycontroller[index]
+                                                                            .text
+                                                                            .isNotEmpty) {
                                                                       Provider.of<Controller>(
                                                                               context,
                                                                               listen:
@@ -425,55 +454,18 @@ class SearchBottomSheet {
                                                                           to_branch_id);
                                                                     }
                                                                   }
-                                                                } else {
-                                                                  if (value.qtycontroller[index].text !=
-                                                                          null &&
-                                                                      value
-                                                                          .qtycontroller[
-                                                                              index]
-                                                                          .text
-                                                                          .isNotEmpty) {
-                                                                    Provider.of<Controller>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addToCartClicked(
-                                                                            true,
-                                                                            index);
+                                                                },
 
-                                                                    Provider.of<Controller>(context, listen: false).addDeletebagItem(
-                                                                        value.searchList[index]
-                                                                            [
-                                                                            "item_id"],
-                                                                        value.searchList[index]
-                                                                            [
-                                                                            "s_rate_1"],
-                                                                        value.searchList[index]
-                                                                            [
-                                                                            "s_rate_2"],
-                                                                        value
-                                                                            .qtycontroller[index]
-                                                                            .text,
-                                                                        "0",
-                                                                        "0",
-                                                                        context,
-                                                                        "save",
-                                                                        "",
-                                                                        form_type,
-                                                                        to_branch_id);
-                                                                  }
-                                                                }
-                                                              },
+                                                                // await Provider.of<
+                                                                //             Controller>(
+                                                                //         context,
+                                                                //         listen: false)
+                                                                //     .getbagData1(
+                                                                //         context, "");
 
-                                                              // await Provider.of<
-                                                              //             Controller>(
-                                                              //         context,
-                                                              //         listen: false)
-                                                              //     .getbagData1(
-                                                              //         context, "");
-
-                                                              child: Icon(Icons.add)),
-                                                        ),])
+                                                                child: Icon(Icons.add)),
+                                                          ),
+                                                  ])
                                                 ],
                                               ),
                                               subtitle: form_type == "1"
