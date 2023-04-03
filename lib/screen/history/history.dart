@@ -300,29 +300,73 @@ class _HistoryPageState extends State<HistoryPage> {
                                 subtitle: Padding(
                                   padding: const EdgeInsets.only(top: 5),
                                   child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "Item Count : ",
-                                        style: GoogleFonts.aBeeZee(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                          fontSize: 13,
-                                          // fontWeight: FontWeight.bold,
-                                          color: P_Settings.historyPageText,
-                                        ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Item Count : ",
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 13,
+                                              // fontWeight: FontWeight.bold,
+                                              color: P_Settings.historyPageText,
+                                            ),
+                                          ),
+                                          Text(
+                                            "${value.historyList[index]['item_count']}",
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: P_Settings.historyPageText,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        "${value.historyList[index]['item_count']}",
-                                        style: GoogleFonts.aBeeZee(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: P_Settings.historyPageText,
-                                        ),
-                                      ),
+                                      InkWell(
+                                          onTap: () {
+                                            Provider.of<Controller>(context,
+                                                    listen: false)
+                                                .getStatus(
+                                                    value.historyList[index]
+                                                        ['req_id'],
+                                                    context);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CustomStepper(
+                                                        reqId: value
+                                                                .historyList[
+                                                            index]['series'],
+                                                      )),
+                                            );
+                                          },
+                                          child: Container(
+                                            color: Colors.yellow,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "Track Order",
+                                                    style: TextStyle(
+                                                        color: Colors.grey[800],
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ))
                                     ],
                                   ),
                                 ),

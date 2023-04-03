@@ -531,45 +531,51 @@ class _StockReportListState extends State<StockReportList> {
                                 ),
                                 title: Row(
                                   children: [
-                                    Text(
-                                        value.stockReportList[index]
-                                            ["item_name"],
-                                        // overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.aBeeZee(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                          fontSize: 16,
-                                          // fontWeight: FontWeight.bold,
-                                          color: P_Settings.loginPagetheme,
-                                        )),
-                                    Text(
-                                        "  (${value.stockReportList[index]["item_code"]})",
-                                        // overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.aBeeZee(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                          fontSize: 16,
-                                          // fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                        )),
-                                  ],
-                                ),
-                                subtitle: Row(
-                                  children: [
-                                    Text(
-                                        "Stock : ${value.stockReportList[index]["stock"]}",
-                                        // overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.aBeeZee(
+                                    Flexible(
+                                      child: Text(
+                                          value.stockReportList[index]
+                                              ["item_name"],
+                                          // overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.aBeeZee(
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2,
                                             fontSize: 16,
-                                            color: Colors.grey[600]
                                             // fontWeight: FontWeight.bold,
-                                            // color: P_Settings.loginPagetheme,
-                                            )),
+                                            color: P_Settings.loginPagetheme,
+                                          )),
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                          "  (${value.stockReportList[index]["item_code"]})",
+                                          // overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 16,
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.grey,
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                subtitle: Row(
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                          "Stock : ${value.stockReportList[index]["stock"]}",
+                                          // overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 16,
+                                              color: Colors.grey[600]
+                                              // fontWeight: FontWeight.bold,
+                                              // color: P_Settings.loginPagetheme,
+                                              )),
+                                    ),
                                   ],
                                 ),
                               );

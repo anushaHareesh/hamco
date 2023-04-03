@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:badges/badges.dart';
+// import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +11,7 @@ import 'package:hamco/screen/received/receivedList.dart';
 import 'package:hamco/screen/return/stockReturn.dart';
 import 'package:hamco/screen/search/searchScreen.dart';
 import 'package:hamco/screen/status%20monitoring/status_mon.dart';
+import 'package:badges/badges.dart' as badges;
 
 import 'package:hamco/screen/stock%20Request/stockFrstPage.dart';
 import 'package:hamco/screen/stock%20Request/stockRequest.dart';
@@ -57,6 +58,8 @@ class _MainDashboardState extends State<MainDashboard> {
 
     Provider.of<Controller>(context, listen: false).userDetails();
     Provider.of<Controller>(context, listen: false).getDeliveryList(context);
+    Provider.of<Controller>(context, listen: false).getDamagedList(context, "");
+
     print("branch_id----$branch_id-----$branch_name");
   }
 
@@ -66,6 +69,7 @@ class _MainDashboardState extends State<MainDashboard> {
     String? cid = prefs.getString("cid");
     Provider.of<Controller>(context, listen: false).userDetails();
     Provider.of<Controller>(context, listen: false).getDeliveryList(context);
+    Provider.of<Controller>(context, listen: false).getDamagedList(context, "");
     _refreshController.refreshCompleted();
   }
 
@@ -343,24 +347,71 @@ class _MainDashboardState extends State<MainDashboard> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: CircleAvatar(
-                                            radius: 30,
-                                            backgroundColor: Colors.transparent,
-                                            child:
-                                                Image.asset("asset/stock.png")),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            CircleAvatar(
+                                                radius: 30,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                child: Image.asset(
+                                                    "asset/stock.png")),
+                                            value.damagedList.length == 0
+                                                ? Container()
+                                                : badges.Badge(
+                                                    badgeStyle:
+                                                        badges.BadgeStyle(
+                                                            // badgeGradient: badges.BadgeGradient.radial(colors: Colors.primaries),
+                                                            shape: badges
+                                                                .BadgeShape
+                                                                .circle,
+                                                            badgeColor:
+                                                                Colors.red),
+                                                    position:
+                                                        badges.BadgePosition
+                                                            .topEnd(
+                                                                top: -30,
+                                                                end: -1),
+                                                    badgeContent: value
+                                                            .damLoading
+                                                        ? SpinKitChasingDots(
+                                                            size: 10,
+                                                            color: P_Settings
+                                                                .homeappbarColor,
+                                                          )
+                                                        : Text(
+                                                            value
+                                                                .damagedListCount
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                    child: Icon(
+                                                      Icons.shopping_cart,
+                                                      color: Colors.white,
+                                                    ))
+                                          ],
+                                        ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          "Material Request",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: P_Settings.loginPagetheme,
-                                          ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "Material Request",
+                                              style: GoogleFonts.aBeeZee(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText2,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color:
+                                                    P_Settings.loginPagetheme,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
@@ -482,47 +533,54 @@ class _MainDashboardState extends State<MainDashboard> {
                                   padding: const EdgeInsets.only(top: 8.0),
                                   child: Column(
                                     children: [
-                                      Stack(
-                                        children: [
-                                          Positioned(
-                                            right: 3,
-                                            child: Container(
-                                              // height: 20,
-                                              // width: 20,
-                                              decoration: new BoxDecoration(
-                                                color: Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              constraints: BoxConstraints(
-                                                minWidth: 14,
-                                                minHeight: 14,
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  value.deliveryListCount !=
-                                                          null
-                                                      ? value.deliveryListCount!
-                                                      : "..",
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: CircleAvatar(
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            CircleAvatar(
                                                 backgroundColor:
                                                     Colors.transparent,
                                                 radius: 30,
                                                 child: Image.asset(
                                                     "asset/received.png")),
-                                          ),
-                                        ],
+                                            value.dispatchedList.length == 0
+                                                ? Container()
+                                                : badges.Badge(
+                                                    badgeStyle:
+                                                        badges.BadgeStyle(
+                                                            // badgeGradient: badges.BadgeGradient.radial(colors: Colors.primaries),
+                                                            shape: badges
+                                                                .BadgeShape
+                                                                .circle,
+                                                            badgeColor:
+                                                                Colors.red),
+                                                    position:
+                                                        badges.BadgePosition
+                                                            .topEnd(
+                                                                top: -30,
+                                                                end: -1),
+                                                    badgeContent: value
+                                                            .isLoading
+                                                        ? SpinKitChasingDots(
+                                                            color: P_Settings
+                                                                .loginPagetheme,size: 10,
+                                                          )
+                                                        : Text(
+                                                            value
+                                                                .deliveryListCount
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                    child: Icon(
+                                                      Icons.shopping_cart,
+                                                      color: Colors.white,
+                                                    ))
+                                          ],
+                                        ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),

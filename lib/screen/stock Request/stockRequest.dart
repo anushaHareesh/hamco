@@ -7,10 +7,12 @@ import 'package:hamco/controller/controller.dart';
 import 'package:hamco/screen/bottomSheet/searchSheet.dart';
 import 'package:hamco/screen/dashboard/mainDashboard.dart';
 import 'package:hamco/screen/history/history.dart';
+import 'package:hamco/screen/stock%20Request/dmaged_list_page.dart';
 import 'package:hamco/screen/stock%20Request/radioTest.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
 
 class StockRequest extends StatefulWidget {
   String from_type;
@@ -170,6 +172,42 @@ class _StockRequestState extends State<StockRequest> {
             style: TextStyle(fontSize: 17),
           ),
           actions: [
+            Consumer<Controller>(
+                builder: (context, value, child) =>
+                    value.damagedList.length == 0
+                        ? Container()
+                        : badges.Badge(
+                            // badgeStyle: badges.BadgeStyle(
+                            //     // badgeGradient: badges.BadgeGradient.radial(colors: Colors.primaries),
+                            //     shape: badges.BadgeShape.circle,
+                            //     badgeColor: Colors.red
+                                
+                                // ),
+                            position:
+                                badges.BadgePosition.topEnd(top: -1, end: -1),
+                            badgeContent: value.damLoading
+                                ? SpinKitChasingDots(
+                                    size: 10,
+                                    color: P_Settings.homeappbarColor,
+                                  )
+                                : Text(
+                                    value.damagedListCount.toString(),
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                            child: IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DamagedList()),
+                                );
+                              },
+                              icon: Icon(
+                                Icons.notifications,
+                                color: Colors.yellow,size: 19,
+                              ),
+                            ),
+                          )),
             IconButton(
                 onPressed: () {
                   Provider.of<Controller>(context, listen: false).fromDate =
@@ -380,14 +418,14 @@ class _StockRequestState extends State<StockRequest> {
                                         left: 10, right: 10),
                                     child: Card(
                                       child: ListTile(
-                                        
                                         leading: Container(
                                           // height: size.height*0.2,
                                           // width: size.width*0.2,
                                           child: CircleAvatar(
                                             radius: 25,
-                                            backgroundImage:AssetImage('asset/noImg.png',),
-                                            
+                                            backgroundImage: AssetImage(
+                                              'asset/noImg.png',
+                                            ),
                                           ),
                                         ),
                                         title: Text(
@@ -491,7 +529,8 @@ class _StockRequestState extends State<StockRequest> {
                                         trailing: IconButton(
                                           icon: Icon(
                                             Icons.delete,
-                                            color: Colors.red,size: 20,
+                                            color: Colors.red,
+                                            size: 20,
                                           ),
                                           onPressed: () {
                                             showDialog(

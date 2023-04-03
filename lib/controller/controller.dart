@@ -11,6 +11,7 @@ import 'package:hamco/model/registrationModel.dart';
 // import 'package:hamco/model/stockReportList.dart';
 import 'package:hamco/model/transactionModel.dart';
 import 'package:hamco/screen/dashboard/mainDashboard.dart';
+import 'package:hamco/screen/stock%20Request/stockRequest.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -34,6 +35,7 @@ class Controller extends ChangeNotifier {
   bool isProdLoading = false;
   bool isSearch = false;
   bool isStatusLoad = false;
+  bool damLoading = false;
 
   String? dropdwnVal;
   String? dropdwnString;
@@ -58,6 +60,8 @@ class Controller extends ChangeNotifier {
   List<Map<String, dynamic>> transaction_item_info = [];
 
   List<Map<String, dynamic>> infoList = [];
+  List<Map<String, dynamic>> damagedList = [];
+  String? damagedListCount;
   List<DeliveryListInfoModel> dispatchedinfoList = [];
 
   List<DeliveryListModel> dispatchedList = [];
@@ -933,6 +937,113 @@ class Controller extends ChangeNotifier {
     });
   }
 
+//////////////////////////////////////////////////
+  getDamagedList(BuildContext context, String type) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          user_id = prefs.getString("user_id");
+
+          Uri url = Uri.parse("$urlgolabl/damage_pdt_list.php");
+          Map body = {
+            'staff_id': user_id,
+          };
+          print("mbody-----$body");
+          if (type != "from confirm") {
+            damLoading = true;
+            notifyListeners();
+          }
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          print("damaged list-----------------$map");
+
+          damagedList.clear();
+          if (map != null) {
+            for (var item in map) {
+              damagedList.add(item);
+            }
+          }
+
+          damagedListCount = damagedList.length.toString();
+          if (type != "from confirm") {
+            damLoading = false;
+            notifyListeners();
+          }
+
+          if (type == "from confirm") {
+            Navigator.push(
+              context, 
+              MaterialPageRoute(
+                  builder: (context) => StockRequest(
+                        from_type: "0",
+                        title: "Material Request",
+                      )),
+            );
+          }
+
+          print("damaged vcv---$damagedList");
+          notifyListeners();
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print(e);
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+
+  //////////////////////////////////////////////////////////////////
+  confirmDamagedList(BuildContext context, String pdm_id) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          user_id = prefs.getString("user_id");
+
+          Uri url = Uri.parse("$urlgolabl/cnfrm_dmg_pd.php");
+          Map body = {
+            'pdm_id': pdm_id,
+          };
+          print("mbody-----$body");
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+          print("damaged list--confrm---------------${response.body}");
+
+          var map = jsonDecode(response.body);
+          print("damaged list--confrm-----map----------${map}");
+
+          if (map["err_status"] == 0) {
+            getDamagedList(context, "from confirm");
+
+            // Navigator.push(
+            //                       context,
+            //                       MaterialPageRoute(
+            //                           builder: (context) => DamagedList()),
+            //                     );
+          }
+          print("damaged confrm---$damagedList");
+          notifyListeners();
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print(e);
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+
   ///////////////////////////////////////////////////////////////////
   saveDeliveryApprovalList(BuildContext context, String osId) async {
     NetConnection.networkConnection(context).then((value) async {
@@ -1120,16 +1231,14 @@ class Controller extends ChangeNotifier {
   }
 
   //////////////////////////////////////////////////////////////////////
-  searchItem(BuildContext context, String itemName) async {
+  searchItem(BuildContext context, String itemName, String to_branch_id) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
           print("value-----$itemName");
 
           Uri url = Uri.parse("$urlgolabl/search_products_list.php");
-          Map body = {
-            'item_name': itemName,
-          };
+          Map body = {'item_name': itemName, "branch_id": to_branch_id};
           print("body-----$body");
           // isDownloaded = true;
           isSearchLoading = true;

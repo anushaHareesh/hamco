@@ -14,7 +14,7 @@ class SearchBottomSheet {
   String? oldText;
   showsearchSheet(
       BuildContext context, Size size, String form_type, String to_branch_id) {
-    // searchcontroller.text = "";
+    print("formtype---$form_type");
     return showModalBottomSheet<void>(
       isScrollControlled: true,
       context: context,
@@ -73,7 +73,8 @@ class SearchBottomSheet {
                                     if (form_type == "0") {
                                       Provider.of<Controller>(context,
                                               listen: false)
-                                          .searchItem(context, values);
+                                          .searchItem(
+                                              context, values, to_branch_id);
                                     } else {
                                       Provider.of<Controller>(context,
                                               listen: false)
@@ -468,8 +469,8 @@ class SearchBottomSheet {
                                                   ])
                                                 ],
                                               ),
-                                              subtitle: form_type == "1"
-                                                  ? Row(
+                                              subtitle: 
+                                                   Row(
                                                       // mainAxisAlignment:
                                                       //     MainAxisAlignment
                                                       //         .spaceBetween,
@@ -482,9 +483,7 @@ class SearchBottomSheet {
                                                             "Stock :${value.searchList[index]["stock"]}")
                                                       ],
                                                     )
-                                                  : Container(
-                                                      height: 0,
-                                                    ));
+                                                  );
                                         },
                                       ))
                       ],
